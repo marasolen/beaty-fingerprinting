@@ -1,0 +1,117 @@
+body {
+    font-family: "Whitney SSm A", "Whitney SSm B", Helvetica, Arial, sans-serif;
+    font-weight: 00;
+    font-style: normal;
+    color: #ffffff;
+    background-color: #222222;
+}
+
+.arrow-head-0 {
+    marker-end: url(#arrow-head-0);
+}
+
+.arrow-head-1 {
+    marker-end: url(#arrow-head-1);
+}
+
+.visualization-container {
+	margin: 0 5% 0 5%;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 1%;
+}
+
+.row {
+    width: 100%;
+    margin-bottom: 10%;
+}
+
+.row-svg {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    font-weight: 600;
+}
+
+.row-label {
+    width: 100%;
+}
+
+.visualization {
+    margin: auto;
+    display: block;
+}
+
+.column {
+    width: 60%;
+    margin: auto;
+    display: block;
+    padding: 1%;
+}
+
+p {
+    width: 80%;
+    margin: auto;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.caption {
+    width: 50%;
+}
+
+img {
+    width: 50%;
+    margin-left: 25%;;
+}
+
+@media screen and (max-width: 1680px) {
+    .column {
+        width: 70%;
+    }
+
+    .visualization-container {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media screen and (orientation: portrait) and (max-width: 1280px) {
+    .column {
+        width: 90%;
+    }
+
+    p {
+        width: 100%;
+    }
+
+    img {
+        width: 80%;
+        margin-left: 10%;;
+    }
+
+    .caption {
+        width: 75%;
+    }
+
+    .visualization-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media screen and (orientation: portrait) and (max-width: 736px) {
+    .column {
+        width: 95%;
+    }
+
+    img {
+        width: 95%;
+        margin-left: 2.5%;;
+    }
+
+    .caption {
+        width: 90%;
+    }
+
+    .visualization-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
