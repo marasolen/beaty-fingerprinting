@@ -34,7 +34,7 @@ const setupSingleRow = (row) => {
 
     const countScale = d3.scaleSymlog()
         .domain([0, d3.max(classes.map(c => overall[c].total))])
-        .range([width / 8, width / 2]);
+        .range([width / 16, width / 2]);
     const classScale = d3.scaleBand()
         .domain(classes)
         .range([0, 2 * Math.PI]);
