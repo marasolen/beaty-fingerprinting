@@ -1,0 +1,712 @@
+[
+    {
+        "row": 1,
+        "danger": false,
+        "secrets": false,
+        "groups": [
+            {
+                "id": "HAG",
+                "images": 3,
+                "objects": 2
+            },
+            {
+                "id": "BAG",
+                "images": 1,
+                "objects": 0
+            },
+            {
+                "id": "HCG",
+                "images": 0,
+                "objects": 2
+            },
+            {
+                "id": "SLG",
+                "images": 0,
+                "objects": 10
+            },
+            {
+                "id": "BLG",
+                "images": 7,
+                "objects": 19
+            },
+            {
+                "id": "SCG",
+                "images": 0,
+                "objects": 1
+            },
+            {
+                "id": "SAG",
+                "images": 0,
+                "objects": 1
+            },
+            {
+                "id": "HLG",
+                "images": 6,
+                "objects": 9
+            },
+            {
+                "id": "BCG",
+                "images": 0,
+                "objects": 1
+            }
+        ]
+    },
+    {
+        "row": 2,
+        "danger": true,
+        "secrets": false,
+        "groups": [
+            {
+                "id": "SLF",
+                "images": 0,
+                "objects": 250
+            },
+            {
+                "id": "BCG",
+                "images": 0,
+                "objects": 2
+            },
+            {
+                "id": "BAG",
+                "images": 0,
+                "objects": 2
+            },
+            {
+                "id": "SLG",
+                "images": 0,
+                "objects": 8
+            },
+            {
+                "id": "TLG",
+                "images": 0,
+                "objects": 30
+            },
+            {
+                "id": "TLF",
+                "images": 0,
+                "objects": 15
+            },
+            {
+                "id": "BLG",
+                "images": 0,
+                "objects": 6
+            },
+            {
+                "id": "HAG",
+                "images": 0,
+                "objects": 2
+            },
+            {
+                "id": "HLG",
+                "images": 0,
+                "objects": 19
+            },
+            {
+                "id": "HCG",
+                "images": 0,
+                "objects": 1
+            },
+            {
+                "id": "BLF",
+                "images": 0,
+                "objects": 7
+            },
+            {
+                "id": "BLG",
+                "images": 0,
+                "objects": 14
+            },
+            {
+                "id": "SCG",
+                "images": 0,
+                "objects": 1
+            }
+        ]
+    },
+    {
+        "row": 3,
+        "danger": true,
+        "secrets": false,
+        "groups": [
+            {
+                "id": "BLG",
+                "images": 8,
+                "objects": 15
+            },
+            {
+                "id": "HLG",
+                "images": 6,
+                "objects": 7
+            },
+            {
+                "id": "SLG",
+                "images": 0,
+                "objects": 1
+            },
+            {
+                "id": "HCG",
+                "images": 1,
+                "objects": 0
+            }
+        ]
+    },
+    {
+        "row": 4,
+        "danger": true,
+        "secrets": false,
+        "groups": [
+            {
+                "id": "SLG",
+                "images": 5,
+                "objects": 7
+            },
+            {
+                "id": "BLG",
+                "images": 3,
+                "objects": 13
+            },
+            {
+                "id": "BCG",
+                "images": 4,
+                "objects": 3
+            },
+            {
+                "id": "HCG",
+                "images": 2,
+                "objects": 4
+            },
+            {
+                "id": "HLG",
+                "images": 3,
+                "objects": 4
+            }
+        ]
+    },
+    {
+        "row": 5,
+        "danger": true,
+        "secrets": true,
+        "groups": [
+            {
+                "id": "SLG",
+                "images": 7,
+                "objects": 17
+            },
+            {
+                "id": "BLG",
+                "images": 3,
+                "objects": 10
+            },
+            {
+                "id": "SLF",
+                "images": 1,
+                "objects": 2
+            },
+            {
+                "id": "SCG",
+                "images": 1,
+                "objects": 7
+            },
+            {
+                "id": "SAG",
+                "images": 1,
+                "objects": 1
+            }
+        ]
+    },
+    {
+        "row": 6,
+        "danger": true,
+        "secrets": true,
+        "groups": [
+            {
+                "id": "SLF",
+                "images": 2,
+                "objects": 0
+            },
+            {
+                "id": "HLG",
+                "images": 1,
+                "objects": 0
+            },
+            {
+                "id": "SLG",
+                "images": 8,
+                "objects": 155
+            },
+            {
+                "id": "SAG",
+                "images": 0,
+                "objects": 2
+            },
+            {
+                "id": "SCG",
+                "images": 2,
+                "objects": 4
+            },
+            {
+                "id": "BCG",
+                "images": 0,
+                "objects": 2
+            }
+        ]
+    },
+    {
+        "row": 7,
+        "danger": true,
+        "secrets": false,
+        "groups": [
+            {
+                "id": "SLG",
+                "images": 6,
+                "objects": 17
+            },
+            {
+                "id": "BLG",
+                "images": 2,
+                "objects": 0
+            },
+            {
+                "id": "SCG",
+                "images": 0,
+                "objects": 1
+            },
+            {
+                "id": "SLF",
+                "images": 2,
+                "objects": 11
+            },
+            {
+                "id": "BLF",
+                "images": 1,
+                "objects": 0
+            }
+        ]
+    },
+    {
+        "row": 8,
+        "danger": false,
+        "secrets": false,
+        "groups": [
+            {
+                "id": "BLF",
+                "images": 1,
+                "objects": 3
+            },
+            {
+                "id": "SLF",
+                "images": 7,
+                "objects": 38
+            },
+            {
+                "id": "SLG",
+                "images": 0,
+                "objects": 5
+            }
+        ]
+    },
+    {
+        "row": 9,
+        "danger": false,
+        "secrets": false,
+        "groups": [
+            {
+                "id": "SLF",
+                "images": 4,
+                "objects": 51
+            },
+            {
+                "id": "BLF",
+                "images": 8,
+                "objects": 4
+            },
+            {
+                "id": "SLG",
+                "images": 0,
+                "objects": 5
+            },
+            {
+                "id": "BLG",
+                "images": 0,
+                "objects": 2
+            },
+            {
+                "id": "SAG",
+                "images": 0,
+                "objects": 2
+            },
+            {
+                "id": "SCG",
+                "images": 0,
+                "objects": 1
+            }
+        ]
+    },
+    {
+        "row": 10,
+        "danger": false,
+        "secrets": false,
+        "groups": [
+            {
+                "id": "SLF",
+                "images": 16,
+                "objects": 84
+            },
+            {
+                "id": "BLF",
+                "images": 0,
+                "objects": 1
+            }
+        ]
+    },
+    {
+        "row": 11,
+        "danger": true,
+        "secrets": true,
+        "groups": [
+            {
+                "id": "TAG",
+                "images": 10,
+                "objects": 25
+            },
+            {
+                "id": "BAG",
+                "images": 4,
+                "objects": 1
+            },
+            {
+                "id": "SAG",
+                "images": 9,
+                "objects": 62
+            }
+        ]
+    },
+    {
+        "row": 12,
+        "danger": true,
+        "secrets": true,
+        "groups": [
+            {
+                "id": "SAG",
+                "images": 15,
+                "objects": 162
+            },
+            {
+                "id": "TAG",
+                "images": 5,
+                "objects": 20
+            },
+            {
+                "id": "BAG",
+                "images": 2,
+                "objects": 1
+            },
+            {
+                "id": "SLG",
+                "images": 1,
+                "objects": 0
+            },
+            {
+                "id": "TLG",
+                "images": 1,
+                "objects": 0
+            }
+        ]
+    },
+    {
+        "row": 13,
+        "danger": false,
+        "secrets": false,
+        "groups": [
+            {
+                "id": "SAG",
+                "images": 9,
+                "objects": 0
+            },
+            {
+                "id": "TAG",
+                "images": 8,
+                "objects": 12
+            },
+            {
+                "id": "BAG",
+                "images": 6,
+                "objects": 0
+            }
+        ]
+    },
+    {
+        "row": 14,
+        "danger": false,
+        "secrets": false,
+        "groups": [
+            {
+                "id": "SAG",
+                "images": 7,
+                "objects": 5
+            },
+            {
+                "id": "TAG",
+                "images": 5,
+                "objects": 0
+            },
+            {
+                "id": "BAG",
+                "images": 12,
+                "objects": 1
+            }
+        ]
+    },
+    {
+        "row": 15,
+        "danger": false,
+        "secrets": true,
+        "groups": [
+            {
+                "id": "SAG",
+                "images": 8,
+                "objects": 15
+            },
+            {
+                "id": "SLG",
+                "images": 7,
+                "objects": 2
+            },
+            {
+                "id": "BLG",
+                "images": 1,
+                "objects": 0
+            },
+            {
+                "id": "TLG",
+                "images": 2,
+                "objects": 1
+            },
+            {
+                "id": "BAG",
+                "images": 8,
+                "objects": 0
+            }
+        ]
+    },
+    {
+        "row": 16,
+        "danger": false,
+        "secrets": true,
+        "groups": [
+            {
+                "id": "SLG",
+                "images": 17,
+                "objects": 4
+            },
+            {
+                "id": "BLG",
+                "images": 4,
+                "objects": 0
+            }
+        ]
+    },
+    {
+        "row": 17,
+        "danger": false,
+        "secrets": true,
+        "groups": [
+            {
+                "id": "SLG",
+                "images": 3,
+                "objects": 8
+            },
+            {
+                "id": "BLG",
+                "images": 2,
+                "objects": 0
+            },
+            {
+                "id": "TLG",
+                "images": 2,
+                "objects": 0
+            }
+        ]
+    },
+    {
+        "row": 18,
+        "danger": false,
+        "secrets": true,
+        "groups": [
+            {
+                "id": "SLG",
+                "images": 5,
+                "objects": 1
+            },
+            {
+                "id": "BLG",
+                "images": 1,
+                "objects": 0
+            },
+            {
+                "id": "TLG",
+                "images": 0,
+                "objects": 1
+            },
+            {
+                "id": "SAG",
+                "images": 2,
+                "objects": 0
+            }
+        ]
+    },
+    {
+        "row": 19,
+        "danger": false,
+        "secrets": true,
+        "groups": [
+            {
+                "id": "SLG",
+                "images": 12,
+                "objects": 8
+            },
+            {
+                "id": "TLG",
+                "images": 0,
+                "objects": 8
+            },
+            {
+                "id": "BLG",
+                "images": 1,
+                "objects": 0
+            }
+        ]
+    },
+    {
+        "row": 20,
+        "danger": false,
+        "secrets": true,
+        "groups": [
+            {
+                "id": "SLG",
+                "images": 11,
+                "objects": 9
+            },
+            {
+                "id": "TLG",
+                "images": 0,
+                "objects": 3
+            },
+            {
+                "id": "BLG",
+                "images": 1,
+                "objects": 0
+            }
+        ]
+    },
+    {
+        "row": 21,
+        "danger": false,
+        "secrets": false,
+        "groups": [
+            {
+                "id": "SLG",
+                "images": 15,
+                "objects": 4
+            },
+            {
+                "id": "BLG",
+                "images": 4,
+                "objects": 0
+            },
+            {
+                "id": "TLG",
+                "images": 2,
+                "objects": 7
+            }
+        ]
+    },
+    {
+        "row": 22,
+        "danger": false,
+        "secrets": false,
+        "groups": [
+            {
+                "id": "SLG",
+                "images": 16,
+                "objects": 6
+            },
+            {
+                "id": "TLG",
+                "images": 7,
+                "objects": 12
+            },
+            {
+                "id": "TLF",
+                "images": 3,
+                "objects": 0
+            }
+        ]
+    },
+    {
+        "row": 23,
+        "danger": false,
+        "secrets": true,
+        "groups": [
+            {
+                "id": "SLG",
+                "images": 10,
+                "objects": 1
+            },
+            {
+                "id": "TLG",
+                "images": 10,
+                "objects": 0
+            }
+        ]
+    },
+    {
+        "row": 24,
+        "danger": true,
+        "secrets": true,
+        "groups": [
+            {
+                "id": "SLG",
+                "images": 12,
+                "objects": 6
+            },
+            {
+                "id": "SAG",
+                "images": 1,
+                "objects": 1
+            },
+            {
+                "id": "TLG",
+                "images": 6,
+                "objects": 0
+            },
+            {
+                "id": "BLG",
+                "images": 1,
+                "objects": 0
+            }
+        ]
+    },
+    {
+        "row": 25,
+        "danger": true,
+        "secrets": true,
+        "groups": [
+            {
+                "id": "HLG",
+                "images": 13,
+                "objects": 12
+            },
+            {
+                "id": "BLG",
+                "images": 5,
+                "objects": 0
+            },
+            {
+                "id": "SLG",
+                "images": 5,
+                "objects": 3
+            }
+        ]
+    }
+]

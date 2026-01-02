@@ -10,10 +10,17 @@
         <div class="column">
             <h1 style="text-align: center; margin-bottom: 0; font-weight: 600;">Beaty Biodiversity Museum: Fingerprints</h1>
             <p>
-                Each glyph represents a subset of the museum. The first glyph is for the entire museum, and the following glyphs are for the individual
-                rows within the museum. The green represents images, the orange represents objects, and the grey represents the rest of the museum (not 
-                including that row). The shape is a radar chart without axes, with the angle corresponding to taxonomic class, and the distance from the 
-                center being logarithimcally related to the number of items in the subset of the museum that are within that angle's taxonomic class.
+                For each row, there is a "Petri dish" and a set of vials. The Petri dish itself is red if I identified a specimen
+                that I interpreted as dangerous in the row, and grey otherwise. The "organisms" in the Petri dishes represent groups
+                of specimens in the row. There are three attributes: size, aquatic to terrestrial, and flies vs doesn't fly. Each
+                organism is a specific combination of these three attributes. For example, one organism may represent Small 
+                Terrestrial organisms that can Fly. The size of the organism represents how many specimens match that combination of
+                attributes within the row, and the colour gradient represents the attributes, with size in the centre, ability to
+                fly on the outside, and aquatic to terrestrial in between. Below the Petri dish is a set of "vials" which is
+                essentially a bar chart of the counts of the different attributes within the row, and acts as a sort of legend for 
+                the organisms as well. I also kept track of how many of each organism's specimens were images vs objects, and 
+                whether the row had any "hidden" specimens (ie specimens in drawers), but I haven't visually encoded either of those
+                things yet.
             </p>
         </div>
 
