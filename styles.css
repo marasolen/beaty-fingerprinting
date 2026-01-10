@@ -26,6 +26,12 @@ body {
     margin-bottom: 10%;
 }
 
+.row-cell-svg {
+    width: 100%;
+    aspect-ratio: 11 / 17;
+    font-weight: 600;
+}
+
 .row-petri-svg {
     width: 100%;
     aspect-ratio: 1 / 1;
