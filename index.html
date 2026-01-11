@@ -10,17 +10,11 @@
         <div class="column">
             <h1 style="text-align: center; margin-bottom: 0; font-weight: 600;">Beaty Biodiversity Museum: Fingerprints</h1>
             <p>
-                For each row, there is a "Petri dish" and a set of vials. The Petri dish itself is red if I identified a specimen
-                that I interpreted as dangerous in the row, and grey otherwise. The "organisms" in the Petri dishes represent groups
-                of specimens in the row. There are three attributes: size, aquatic to terrestrial, and flies vs doesn't fly. Each
-                organism is a specific combination of these three attributes. For example, one organism may represent Small 
-                Terrestrial organisms that can Fly. The size of the organism represents how many specimens match that combination of
-                attributes within the row, and the colour gradient represents the attributes, with size in the centre, ability to
-                fly on the outside, and aquatic to terrestrial in between. Below the Petri dish is a set of "vials" which is
-                essentially a bar chart of the counts of the different attributes within the row, and acts as a sort of legend for 
-                the organisms as well. I also kept track of how many of each organism's specimens were images vs objects, and 
-                whether the row had any "hidden" specimens (ie specimens in drawers), but I haven't visually encoded either of those
-                things yet.
+                For each row, there is a set of "cells" layed out using a Voronoi map. Each cell represents a group of specimens in 
+                the row. There are three attributes: size, aquatic to terrestrial, and flies vs doesn't fly. Each cell is a 
+                specific combination of these three attributes. The size of the cell represents how many specimens in the row match 
+                that combination of attributes, and the coloured, textured fills represents the attributes, with size in the centre, 
+                aquatic to terrestrial on the outside, and ability to fly in between.
             </p>
         </div>
 

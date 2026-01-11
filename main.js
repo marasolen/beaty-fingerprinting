@@ -4,12 +4,6 @@ const resizeAndRender = () => {
     d3.selectAll("#row-visualization-container > *").remove();
 
     renderVisualization();
-
-    d3.selectAll("text")
-        .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.008 * document.getElementById("row-visualization-container").clientWidth });
-
-    d3.select("#tooltip")
-        .style("border-radius", 0.02 * document.getElementById("row-visualization-container").clientHeight + "px");
 };
 
 window.onresize = resizeAndRender;
@@ -41,9 +35,9 @@ const setupSingleRowCell = (row) => {
     const containerHeight = document.getElementById("row-" + row.row + "-cell").clientHeight;
 
     const margin = {
-        top: 0.03 * containerHeight,
+        top: 0.01 * containerHeight,
         right: 0.03 * containerWidth,
-        bottom: 0.03 * containerHeight,
+        bottom: 0.3 * containerHeight,
         left: 0.03 * containerWidth
     };
 
@@ -51,6 +45,8 @@ const setupSingleRowCell = (row) => {
     const height = containerHeight - (margin.top + margin.bottom);
 
     const svg = d3.select(`#row-${row.row}-cell`);
+
+    // Cells
     const chartArea = svg.append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
 
@@ -66,36 +62,158 @@ const setupSingleRowCell = (row) => {
         state = simulation.state();
     }
 
-    const originalPolygons = state.polygons.map(polygon => generateInsetPolygon(polygon, 15));
+    const originalPolygons = state.polygons.map(polygon => generateInsetPolygon(polygon, 5));
+
+    const order = [
+        1, // outside
+        2, // middle
+        0  // inside
+    ]
 
     const scaledPolygons = [];
-    [1, Math.sqrt(0.5), Math.sqrt(0.15)].forEach((scale, i) => {
-        scaledPolygons.push(...originalPolygons.map(p => [i, generateScaledPolygon(p, scale)]));
+    [1, Math.sqrt(0.6), Math.sqrt(0.4)].forEach((scale, i) => {
+        scaledPolygons.push(...originalPolygons.map(p => [order[i], generateScaledPolygon(p, scale)]));
     });
 
     const line = d3.line().curve(d3.curveCardinalClosed.tension(0.8));
 
+    const weightedPointAverage = (from, to, weightOnTo) => {
+        return [from[0] * (1 - weightOnTo) + to[0] * weightOnTo, from[1] * (1 - weightOnTo) + to[1] * weightOnTo];
+    };
+
+    const pathGenerator = (polygon) => {
+        let path = d3.path();
+        path.moveTo(...weightedPointAverage(polygon[polygon.length - 1], polygon[0], 0.95));
+        polygon.forEach((point, i) => {
+            if (i > 0) {
+                path.quadraticCurveTo(...polygon[i - 1], ...weightedPointAverage(polygon[i - 1], point, 0.05));
+                path.lineTo(...weightedPointAverage(polygon[i - 1], point, 0.95));
+            }
+        });
+        path.quadraticCurveTo(...polygon[polygon.length - 1], ...weightedPointAverage(polygon[polygon.length - 1], polygon[0], 0.05));
+        path.closePath();
+        return path;
+    };
+
     const customTextures = {
-        T: textures.circles().radius(2).background("#fccde5"), 
-        S: textures.circles().radius(3).background("#fdb462"), 
-        B: textures.circles().radius(4).background("#ffed6f"),
-        H: textures.circles().radius(5).background("#b3de69"),
-        A: textures.paths().d("waves").lighter().background("#80b1d3"), 
-        L: textures.paths().d("nylon").lighter().background("#fb8072"), 
-        C: textures.paths().d("woven").lighter().background("#bc80bd"),
-        G: textures.lines().orientation("3/8", "7/8").lighter().background("#a65628"),
-        F: textures.paths().d("caps").lighter().background("#8dd3c7")
+        T: textures.circles().radius(2).background("#f7fc76").fill("#c3c90c"),
+        S: textures.circles().radius(3).background("#fcc964").fill("#e59a04"), 
+        B: textures.circles().radius(4).background("#fca45d").fill("#ce5f04"),
+        H: textures.circles().radius(5).background("#f4695a").fill("#d11c08"),
+        A: textures.paths().d("waves").background("#316be0").stroke("#1d2ec6"), 
+        L: textures.paths().d("nylon").background("#68c96a").thinner().stroke("#19841a"), 
+        C: textures.paths().d("woven").background("#51c1a7").stroke("#11ad88"),
+        G: textures.lines().orientation("horizontal").background("#cbaaf7").stroke("#8845e0"),
+        F: textures.paths().d("caps").background("#dfdee0").stroke("#727272")
+    };
+
+    const textMap = {
+        T: "tiny",
+        S: "small", 
+        B: "big",
+        H: "huge",
+        A: "aquatic", 
+        L: "terrestrial", 
+        C: "semiaquatic",
+        G: "",
+        F: "that fly"
     };
 
     Object.values(customTextures).forEach(texture => {
         svg.call(texture);
     });
 
-    chartArea.selectAll('path').data(scaledPolygons)
-        .enter()
-        .append('path')
-        .attr('d', d => line(d[1]) + 'z')
+    chartArea.selectAll('path')
+        .data(scaledPolygons)
+        .join('path')
+        .attr('d', d => pathGenerator(d[1]))
         .attr('fill', d => customTextures[d[1].site.originalObject.data.originalData.id.substring(d[0], d[0] + 1)].url());
+
+    const texts = chartArea.selectAll('text')
+        .data(originalPolygons.filter(d => d3.polygonArea(d) > (width * height / 5)))
+        .join('text')
+        .attr("transform", d => `translate(${d3.polygonCentroid(d)[0]}, ${d3.polygonCentroid(d)[1]})`)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "middle")
+        .attr("font-size", "1.2em")
+        .text(d => {
+            const id = d.site.originalObject.data.originalData.id;
+            return `${textMap[id[0]]} ${textMap[id[1]]} organisms ${textMap[id[2]]}`.trim(); 
+        });
+
+    texts._groups[0].forEach(text => {
+        const bounds = text.getBBox();
+        const padding = 10;
+        chartArea.append("rect")
+            .attr("x", bounds.x - padding)
+            .attr("y", bounds.y - padding)
+            .attr("width", bounds.width + 2 * padding)
+            .attr("height", bounds.height + 2 * padding)
+            .attr("rx", padding / 2)
+            .attr("ry", padding / 2)
+            .attr("fill", "white")
+            .attr("opacity", 0.8)
+            .attr("transform", d3.select(text).attr("transform"));
+    });
+
+    texts.raise();
+
+    // Dividing line
+    svg.append("rect")
+        .attr("x", margin.left * 2)
+        .attr("y", height + margin.top + 12)
+        .attr("width", width - margin.left - margin.right)
+        .attr("height", 2)
+        .attr("fill", "white");
+
+
+    // Legend
+    const rowHeight = (margin.bottom - 25) / 2;
+
+    const legendTextMap = {
+        T: "tiny",
+        S: "small", 
+        B: "big",
+        H: "huge",
+        A: "aquatic", 
+        L: "terrestrial",
+        C: "semiaquatic",
+        G: "can't fly",
+        F: "can fly"
+    };
+
+    
+
+    const legend = svg.append("g")
+        .attr('transform', `translate(${margin.left},${margin.top + height + 30})`);
+
+    [
+        ["", "T", "S", "B", "H", ""],
+        ["F", "G", "", "A", "C", "L"]
+    ].forEach((group, i) => {
+        group.forEach((item, j) => {
+            if (item === "") {
+                return;
+            }
+
+            legend.append("rect")
+                .attr("x", j * width / group.length + (width / group.length) / 2 - rowHeight / 3)
+                .attr("y", rowHeight * i)
+                .attr("width", 2 * rowHeight / 3)
+                .attr("height", 2 * rowHeight / 3)
+                .attr("rx", 5)
+                .attr("ry", 5)
+                .attr("fill", customTextures[item].url());
+
+            legend.append("text")
+                .attr("transform", d => `translate(${j * width / group.length + (width / group.length) / 2}, ${rowHeight * (i + 5 / 6)})`)
+                .attr("text-anchor", "middle")
+                .attr("dominant-baseline", "middle")
+                .attr("font-size", "0.9em")
+                .attr("fill", "white")
+                .text(legendTextMap[item]);
+        });
+    });
 };
 
 const renderVisualization = () => {

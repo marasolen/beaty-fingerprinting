@@ -24,28 +24,18 @@ body {
 .row {
     width: 100%;
     margin-bottom: 10%;
+    aspect-ratio: 11 / 17;
 }
 
 .row-cell-svg {
     width: 100%;
-    aspect-ratio: 11 / 17;
-    font-weight: 600;
-}
-
-.row-petri-svg {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    font-weight: 600;
-}
-
-.row-vial-svg {
-    width: 100%;
-    aspect-ratio: 2 / 1;
-    font-weight: 600;
+    font-weight: 400;
+    height: 100%;
 }
 
 .row-label {
     width: 100%;
+    font-size: 2em;
 }
 
 .visualization {
