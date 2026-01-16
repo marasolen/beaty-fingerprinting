@@ -127,6 +127,8 @@ const setupSingleRowCell = (row) => {
         .data(scaledPolygons)
         .join('path')
         .attr('d', d => pathGenerator(d[1]))
+        .attr("stroke", "black")
+        .attr("stroke-width", 1)
         .attr('fill', d => customTextures[d[1].site.originalObject.data.originalData.id.substring(d[0], d[0] + 1)].url());
 
     const texts = chartArea.selectAll('text')
@@ -181,8 +183,6 @@ const setupSingleRowCell = (row) => {
         G: "can't fly",
         F: "can fly"
     };
-
-    
 
     const legend = svg.append("g")
         .attr('transform', `translate(${margin.left},${margin.top + height + 30})`);
