@@ -127,7 +127,7 @@ const setupSingleRowCell = (row) => {
         .data(scaledPolygons)
         .join('path')
         .attr('d', d => pathGenerator(d[1]))
-        .attr("stroke", "black")
+        .attr("stroke", "#222222")
         .attr("stroke-width", 1)
         .attr('fill', d => customTextures[d[1].site.originalObject.data.originalData.id.substring(d[0], d[0] + 1)].url());
 
