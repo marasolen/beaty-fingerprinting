@@ -1,5 +1,7 @@
 let rows;
 
+const prng = new Math.seedrandom('my seed');
+
 const resizeAndRender = () => {
     d3.selectAll("#row-visualization-container > *").remove();
 
@@ -53,6 +55,7 @@ const setupSingleRowCell = (row) => {
     const simulation = d3.voronoiMapSimulation(row.groups)
         .weight(d => d.total)
         .clip([[0, 0], [0, height], [width, height], [width, 0]])
+        .prng(prng)
         .stop();
 
     let state = simulation.state();
