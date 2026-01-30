@@ -1,6 +1,4 @@
-let rows;
-
-const prng = new Math.seedrandom('my seed');
+let rows, prng;
 
 const resizeAndRender = () => {
     d3.selectAll("#row-visualization-container > *").remove();
@@ -32,6 +30,12 @@ const generateScaledPolygon = (polygon, scale) => {
     return newPolygon;
 };
 
+const scalePolygon = (polygon, scale) => {
+    const newPolygon = polygon.map(([x, y]) => [scale * x, scale * y]);
+    newPolygon.site = polygon.site;
+    return newPolygon;
+};
+
 const setupSingleRowCell = (row) => {
     const containerWidth = document.getElementById("row-" + row.row + "-cell").clientWidth;
     const containerHeight = document.getElementById("row-" + row.row + "-cell").clientHeight;
@@ -54,7 +58,7 @@ const setupSingleRowCell = (row) => {
 
     const simulation = d3.voronoiMapSimulation(row.groups)
         .weight(d => d.total)
-        .clip([[0, 0], [0, height], [width, height], [width, 0]])
+        .clip([[0, 0], [0, 596.1600000000001], [525.46, 596.1600000000001], [525.46, 0]])
         .prng(prng)
         .stop();
 
@@ -65,7 +69,17 @@ const setupSingleRowCell = (row) => {
         state = simulation.state();
     }
 
-    const originalPolygons = state.polygons.map(polygon => generateInsetPolygon(polygon, 5));
+    const originalPolygons = state.polygons
+        .map(polygon => scalePolygon(polygon, width / 525.46))
+        .map(polygon => {
+        if (d3.polygonArea(polygon) / (width * height) < 0.01) {
+            return generateInsetPolygon(polygon, 1)
+        } else if (d3.polygonArea(polygon) / (width * height) < 0.02) {
+            return generateInsetPolygon(polygon, 2)
+        } else {
+            return generateInsetPolygon(polygon, 5)
+        }
+    });
 
     const order = [
         1, // outside
@@ -74,11 +88,9 @@ const setupSingleRowCell = (row) => {
     ]
 
     const scaledPolygons = [];
-    [1, Math.sqrt(0.6), Math.sqrt(0.4)].forEach((scale, i) => {
-        scaledPolygons.push(...originalPolygons.map(p => [order[i], generateScaledPolygon(p, scale)]));
+    [1, Math.sqrt(0.6), Math.sqrt(0.3)].forEach((scale, i) => {
+        scaledPolygons.push(...originalPolygons.filter(p => i === 0 || p.site.originalObject.data.originalData.id !== "III").map(p => [order[i], generateScaledPolygon(p, scale)]));
     });
-
-    const line = d3.line().curve(d3.curveCardinalClosed.tension(0.8));
 
     const weightedPointAverage = (from, to, weightOnTo) => {
         return [from[0] * (1 - weightOnTo) + to[0] * weightOnTo, from[1] * (1 - weightOnTo) + to[1] * weightOnTo];
@@ -99,6 +111,7 @@ const setupSingleRowCell = (row) => {
     };
 
     const customTextures = {
+        I: textures.paths().d("crosses").lighter().background("#666666").stroke("#222222"),
         T: textures.circles().radius(2).background("#f7fc76").fill("#c3c90c"),
         S: textures.circles().radius(3).background("#fcc964").fill("#e59a04"), 
         B: textures.circles().radius(4).background("#fca45d").fill("#ce5f04"),
@@ -143,6 +156,7 @@ const setupSingleRowCell = (row) => {
         .attr("font-size", "1.2em")
         .text(d => {
             const id = d.site.originalObject.data.originalData.id;
+            if (id === "III") return "organisms hidden in drawers";
             return `${textMap[id[0]]} ${textMap[id[1]]} organisms ${textMap[id[2]]}`.trim(); 
         });
 
@@ -176,6 +190,7 @@ const setupSingleRowCell = (row) => {
     const rowHeight = (margin.bottom - 25) / 2;
 
     const legendTextMap = {
+        I: "hidden...",
         T: "tiny",
         S: "small", 
         B: "big",
@@ -191,7 +206,7 @@ const setupSingleRowCell = (row) => {
         .attr('transform', `translate(${margin.left},${margin.top + height + 30})`);
 
     [
-        ["", "T", "S", "B", "H", ""],
+        ["I", "", "T", "S", "B", "H"],
         ["F", "G", "", "A", "C", "L"]
     ].forEach((group, i) => {
         group.forEach((item, j) => {
@@ -231,13 +246,15 @@ const renderVisualization = () => {
         .data(d => [d])
         .join("i")
         .attr("class", "row-label")
-        .text(d => d.row === 0 ? "Entire Museum" : "Row " + d.row);
+        .text(d => d.row === 0 ? "Entire Museum" : "Row " + d.row + ": " + d.name);
 
     rowContainers.selectAll(".row-cell-svg")
         .data(d => [d])
         .join("svg")
         .attr("class", "row-cell-svg")
         .attr("id", d => "row-" + d.row + "-cell");
+
+    prng = new Math.seedrandom('my seed');
 
     rows.forEach(setupSingleRowCell);
 };
@@ -247,7 +264,9 @@ Promise.all([d3.json('data/row-meaning.json')]).then(([_rows]) => {
 
     rows.forEach(row => {
         row.groups.forEach(group => {
+            if (!group.total) {
             group.total = group.images + group.objects;
+            }
         });
     });
 

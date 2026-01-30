@@ -1,8 +1,7 @@
 [
     {
         "row": 1,
-        "danger": false,
-        "secrets": false,
+        "name": "Massive Modern Mammals",
         "groups": [
             {
                 "id": "HAG",
@@ -53,8 +52,7 @@
     },
     {
         "row": 2,
-        "danger": true,
-        "secrets": false,
+        "name": "Taxidermied Birds, Beasts, and Bugs",
         "groups": [
             {
                 "id": "SLF",
@@ -125,8 +123,7 @@
     },
     {
         "row": 3,
-        "danger": true,
-        "secrets": false,
+        "name": "Antlers and Tusks",
         "groups": [
             {
                 "id": "BLG",
@@ -152,8 +149,7 @@
     },
     {
         "row": 4,
-        "danger": true,
-        "secrets": false,
+        "name": "Sneaky Critters and Swimmers",
         "groups": [
             {
                 "id": "SLG",
@@ -184,9 +180,12 @@
     },
     {
         "row": 5,
-        "danger": true,
-        "secrets": true,
+        "name": "Reptiles, Rodents, and More",
         "groups": [
+            {
+                "id": "III",
+                "total": 48
+            },
             {
                 "id": "SLG",
                 "images": 7,
@@ -216,9 +215,12 @@
     },
     {
         "row": 6,
-        "danger": true,
-        "secrets": true,
+        "name": "Rodents and their Snake Predators",
         "groups": [
+            {
+                "id": "III",
+                "total": 31
+            },
             {
                 "id": "SLF",
                 "images": 2,
@@ -253,8 +255,7 @@
     },
     {
         "row": 7,
-        "danger": true,
-        "secrets": false,
+        "name": "Water Birds and Mammals",
         "groups": [
             {
                 "id": "SLG",
@@ -285,8 +286,7 @@
     },
     {
         "row": 8,
-        "danger": false,
-        "secrets": false,
+        "name": "Almost All Aves",
         "groups": [
             {
                 "id": "BLF",
@@ -307,8 +307,7 @@
     },
     {
         "row": 9,
-        "danger": false,
-        "secrets": false,
+        "name": "Aces, and Ancestor, and Egg Eaters",
         "groups": [
             {
                 "id": "SLF",
@@ -344,8 +343,7 @@
     },
     {
         "row": 10,
-        "danger": false,
-        "secrets": false,
+        "name": "Birds of Night and Day",
         "groups": [
             {
                 "id": "SLF",
@@ -361,9 +359,12 @@
     },
     {
         "row": 11,
-        "danger": true,
-        "secrets": true,
+        "name": "Corals, Crustaceans, and Ocean Critters",
         "groups": [
+            {
+                "id": "III",
+                "total": 86
+            },
             {
                 "id": "TAG",
                 "images": 10,
@@ -383,9 +384,12 @@
     },
     {
         "row": 12,
-        "danger": true,
-        "secrets": true,
+        "name": "Shells and their Occupants",
         "groups": [
+            {
+                "id": "III",
+                "total": 57
+            },
             {
                 "id": "SAG",
                 "images": 15,
@@ -415,8 +419,7 @@
     },
     {
         "row": 13,
-        "danger": false,
-        "secrets": false,
+        "name": "A Bug in the (sea)weeds",
         "groups": [
             {
                 "id": "SAG",
@@ -437,8 +440,7 @@
     },
     {
         "row": 14,
-        "danger": false,
-        "secrets": false,
+        "name": "An Edible Ocean plant?",
         "groups": [
             {
                 "id": "SAG",
@@ -459,9 +461,12 @@
     },
     {
         "row": 15,
-        "danger": false,
-        "secrets": true,
+        "name": "Worts not Warts!",
         "groups": [
+            {
+                "id": "III",
+                "total": 86
+            },
             {
                 "id": "SAG",
                 "images": 8,
@@ -491,9 +496,12 @@
     },
     {
         "row": 16,
-        "danger": false,
-        "secrets": true,
+        "name": "A Frog and a rabbit in plants",
         "groups": [
+            {
+                "id": "III",
+                "total": 29
+            },
             {
                 "id": "SLG",
                 "images": 17,
@@ -508,9 +516,12 @@
     },
     {
         "row": 17,
-        "danger": false,
-        "secrets": true,
+        "name": "Shells, moss, and human hair",
         "groups": [
+            {
+                "id": "III",
+                "total": 106
+            },
             {
                 "id": "SLG",
                 "images": 3,
@@ -530,9 +541,12 @@
     },
     {
         "row": 18,
-        "danger": false,
-        "secrets": true,
+        "name": "More Moss!",
         "groups": [
+            {
+                "id": "III",
+                "total": 59
+            },
             {
                 "id": "SLG",
                 "images": 5,
@@ -557,9 +571,12 @@
     },
     {
         "row": 19,
-        "danger": false,
-        "secrets": true,
+        "name": "Moss and Societally Impactful Plants",
         "groups": [
+            {
+                "id": "III",
+                "total": 23
+            },
             {
                 "id": "SLG",
                 "images": 12,
@@ -579,9 +596,12 @@
     },
     {
         "row": 20,
-        "danger": false,
-        "secrets": true,
+        "name": "Dental Moss",
         "groups": [
+            {
+                "id": "III",
+                "total": 26
+            },
             {
                 "id": "SLG",
                 "images": 11,
@@ -601,8 +621,7 @@
     },
     {
         "row": 21,
-        "danger": false,
-        "secrets": false,
+        "name": "Moss under a Microscope",
         "groups": [
             {
                 "id": "SLG",
@@ -623,8 +642,7 @@
     },
     {
         "row": 22,
-        "danger": false,
-        "secrets": false,
+        "name": "Tricky Stinky Moss",
         "groups": [
             {
                 "id": "SLG",
@@ -645,9 +663,12 @@
     },
     {
         "row": 23,
-        "danger": false,
-        "secrets": true,
+        "name": "Poison and Plague",
         "groups": [
+            {
+                "id": "III",
+                "total": 24
+            },
             {
                 "id": "SLG",
                 "images": 10,
@@ -662,9 +683,12 @@
     },
     {
         "row": 24,
-        "danger": true,
-        "secrets": true,
+        "name": "Lots of Liverworts",
         "groups": [
+            {
+                "id": "III",
+                "total": 45
+            },
             {
                 "id": "SLG",
                 "images": 12,
@@ -689,8 +713,7 @@
     },
     {
         "row": 25,
-        "danger": true,
-        "secrets": true,
+        "name": "Prehistoric Plants",
         "groups": [
             {
                 "id": "HLG",
@@ -706,6 +729,620 @@
                 "id": "SLG",
                 "images": 5,
                 "objects": 3
+            }
+        ]
+    },
+    {
+        "row": 26,
+        "name": "Flowers and Foliage",
+        "groups": [
+            {
+                "id": "SLG",
+                "total": 34
+            },
+            {
+                "id": "BLG",
+                "total": 2
+            }
+        ]
+    },
+    {
+        "row": 27,
+        "name": "Grass beyond the backyard",
+        "groups": [
+            {
+                "id": "III",
+                "total": 53
+            },
+            {
+                "id": "BLG",
+                "total": 8
+            },
+            {
+                "id": "SLG",
+                "total": 28
+            },
+            {
+                "id": "TLG",
+                "total": 6
+            }
+        ]
+    },
+    {
+        "row": 28,
+        "name": "Peas, beans, fruits, and flowers",
+        "groups": [
+            {
+                "id": "III",
+                "total": 122
+            },
+            {
+                "id": "SLG",
+                "total": 35
+            },
+            {
+                "id": "TLG",
+                "total": 33
+            },
+            {
+                "id": "BLG",
+                "total": 1
+            }
+        ]
+    },
+    {
+        "row": 29,
+        "name": "Hot dogs and holidays",
+        "groups": [
+            {
+                "id": "SLG",
+                "total": 18
+            },
+            {
+                "id": "HLG",
+                "total": 7
+            },
+            {
+                "id": "TLF",
+                "total": 6
+            }
+        ]
+    },
+    {
+        "row": 30,
+        "name": "Blooming branches",
+        "groups": [
+            {
+                "id": "SLG",
+                "total": 128
+            },
+            {
+                "id": "BLG",
+                "total": 1
+            },
+            {
+                "id": "TLG",
+                "total": 2
+            },
+            {
+                "id": "HLG",
+                "total": 1
+            }
+        ]
+    },
+    {
+        "row": 31,
+        "name": "Financially-supportive flowers",
+        "groups": [
+            {
+                "id": "III",
+                "total": 42
+            },
+            {
+                "id": "SLG",
+                "total": 21
+            },
+            {
+                "id": "TLG",
+                "total": 2
+            }
+        ]
+    },
+    {
+        "row": 32,
+        "name": "Sunflowers and symbiotes",
+        "groups": [
+            {
+                "id": "III",
+                "total": 35
+            },
+            {
+                "id": "SLG",
+                "total": 16
+            },
+            {
+                "id": "BLG",
+                "total": 4
+            },
+            {
+                "id": "TLF",
+                "total": 2
+            },
+            {
+                "id": "SLF",
+                "total": 1
+            }
+        ]
+    },
+    {
+        "row": 33,
+        "name": "Cones, stone, and bones",
+        "groups": [
+            {
+                "id": "SLG",
+                "total": 52
+            },
+            {
+                "id": "TLG",
+                "total": 3
+            },
+            {
+                "id": "BLG",
+                "total": 2
+            }
+        ]
+    },
+    {
+        "row": 34,
+        "name": "Fungus: plant or animal?",
+        "groups": [
+            {
+                "id": "SLG",
+                "total": 41
+            },
+            {
+                "id": "TLG",
+                "total": 10
+            }
+        ]
+    },
+    {
+        "row": 35,
+        "name": "Living off of others",
+        "groups": [
+            {
+                "id": "III",
+                "total": 75
+            },
+            {
+                "id": "SLG",
+                "total": 28
+            },
+            {
+                "id": "TLG",
+                "total": 16
+            },
+            {
+                "id": "TLF",
+                "total": 75
+            },
+            {
+                "id": "SLF",
+                "total": 3
+            }
+        ]
+    },
+    {
+        "row": 36,
+        "name": "Hijacked!",
+        "groups": [
+            {
+                "id": "III",
+                "total": 66
+            },
+            {
+                "id": "SLG",
+                "total": 23
+            },
+            {
+                "id": "BLG",
+                "total": 5
+            },
+            {
+                "id": "BLF",
+                "total": 2
+            },
+            {
+                "id": "TLG",
+                "total": 17
+            },
+            {
+                "id": "TLF",
+                "total": 1
+            },
+            {
+                "id": "SLF",
+                "total": 2
+            },
+            {
+                "id": "HLG",
+                "total": 3
+            },
+            {
+                "id": "BCG",
+                "total": 1
+            },
+            {
+                "id": "BAG",
+                "total": 2
+            },
+            {
+                "id": "SAG",
+                "total": 6
+            }
+        ]
+    },
+    {
+        "row": 37,
+        "name": "Which of these are bugs?",
+        "groups": [
+            {
+                "id": "III",
+                "total": 63
+            },
+            {
+                "id": "TLF",
+                "total": 177
+            },
+            {
+                "id": "TLG",
+                "total": 82
+            },
+            {
+                "id": "SLG",
+                "total": 4
+            },
+            {
+                "id": "BLG",
+                "total": 1
+            },
+            {
+                "id": "SLF",
+                "total": 28
+            },
+            {
+                "id": "TCG",
+                "total": 40
+            },
+            {
+                "id": "TAG",
+                "total": 15
+            }
+        ]
+    },
+    {
+        "row": 38,
+        "name": "Bugs and beyond",
+        "groups": [
+            {
+                "id": "III",
+                "total": 47
+            },
+            {
+                "id": "TLF",
+                "total": 178
+            },
+            {
+                "id": "SLG",
+                "total": 4
+            },
+            {
+                "id": "TLG",
+                "total": 8
+            },
+            {
+                "id": "SLF",
+                "total": 7
+            }
+        ]
+    },
+    {
+        "row": 39,
+        "name": "To eat or be eaten by",
+        "groups": [
+            {
+                "id": "SAG",
+                "total": 55
+            },
+            {
+                "id": "HAG",
+                "total": 14
+            },
+            {
+                "id": "BAG",
+                "total": 19
+            }
+        ]
+    },
+    {
+        "row": 40,
+        "name": "Flamingo feathers among fish?",
+        "groups": [
+            {
+                "id": "SAG",
+                "total": 37
+            },
+            {
+                "id": "BAG",
+                "total": 21
+            },
+            {
+                "id": "TAG",
+                "total": 2
+            },
+            {
+                "id": "BLF",
+                "total": 1
+            }
+        ]
+    },
+    {
+        "row": 41,
+        "name": "Salmon and salmonids",
+        "groups": [
+            {
+                "id": "SAG",
+                "total": 55
+            },
+            {
+                "id": "BAG",
+                "total": 12
+            },
+            {
+                "id": "TAG",
+                "total": 4
+            }
+        ]
+    },
+    {
+        "row": 42,
+        "name": "Are they white, grey, or black?",
+        "groups": [
+            {
+                "id": "SAG",
+                "total": 34
+            },
+            {
+                "id": "BAG",
+                "total": 9
+            }
+        ]
+    },
+    {
+        "row": 43,
+        "name": "Aquatic cats and carps",
+        "groups": [
+            {
+                "id": "SAG",
+                "total": 56
+            },
+            {
+                "id": "TAG",
+                "total": 15
+            },
+            {
+                "id": "BAG",
+                "total": 7
+            },
+            {
+                "id": "HCG",
+                "total": 1
+            },
+            {
+                "id": "HLG",
+                "total": 1
+            }
+        ]
+    },
+    {
+        "row": 44,
+        "name": "Needles, eels, and other long fish",
+        "groups": [
+            {
+                "id": "SAG",
+                "total": 49
+            },
+            {
+                "id": "BAG",
+                "total": 14
+            },
+            {
+                "id": "TAG",
+                "total": 16
+            }
+        ]
+    },
+    {
+        "row": 45,
+        "name": "Which side are your eyes on?",
+        "groups": [
+            {
+                "id": "SAG",
+                "total": 84
+            },
+            {
+                "id": "BAG",
+                "total": 10
+            }
+        ]
+    },
+    {
+        "row": 46,
+        "name": "Underwater archers, goats, and scorpions?",
+        "groups": [
+            {
+                "id": "SAG",
+                "total": 129
+            },
+            {
+                "id": "HAG",
+                "total": 2
+            },
+            {
+                "id": "TAG",
+                "total": 6
+            }
+        ]
+    },
+    {
+        "row": 47,
+        "name": "Camoflage and reproduction",
+        "groups": [
+            {
+                "id": "SAG",
+                "total": 42
+            },
+            {
+                "id": "BAG",
+                "total": 8
+            },
+            {
+                "id": "TAG",
+                "total": 2
+            }
+        ]
+    },
+    {
+        "row": 48,
+        "name": "Fish hitching a glacial ride",
+        "groups": [
+            {
+                "id": "SAG",
+                "total": 61
+            },
+            {
+                "id": "TAG",
+                "total": 11
+            },
+            {
+                "id": "BAG",
+                "total": 4
+            }
+        ]
+    },
+    {
+        "row": 49,
+        "name": "Seahorsing around",
+        "groups": [
+            {
+                "id": "SAG",
+                "total": 58
+            },
+            {
+                "id": "BAG",
+                "total": 7
+            },
+            {
+                "id": "TAG",
+                "total": 22
+            },
+            {
+                "id": "BLG",
+                "total": 1
+            }
+        ]
+    },
+    {
+        "row": 50,
+        "name": "Pout, Prickle, and Porcupine fish",
+        "groups": [
+            {
+                "id": "SAG",
+                "total": 69
+            },
+            {
+                "id": "TAG",
+                "total": 16
+            },
+            {
+                "id": "BAG",
+                "total": 1
+            },
+            {
+                "id": "HAG",
+                "total": 1
+            }
+        ]
+    },
+    {
+        "row": 51,
+        "name": "Evolutionary explosions",
+        "groups": [
+            {
+                "id": "III",
+                "total": 41
+            },
+            {
+                "id": "SLG",
+                "total": 7
+            },
+            {
+                "id": "SLF",
+                "total": 1
+            },
+            {
+                "id": "SAG",
+                "total": 35
+            },
+            {
+                "id": "TAG",
+                "total": 11
+            },
+            {
+                "id": "HLG",
+                "total": 1
+            }
+        ]
+    },
+    {
+        "row": 52,
+        "name": "Dinos and dons!",
+        "groups": [
+            {
+                "id": "III",
+                "total": 37
+            },
+            {
+                "id": "SAG",
+                "total": 46
+            },
+            {
+                "id": "SLG",
+                "total": 2
+            },
+            {
+                "id": "HAG",
+                "total": 10
+            },
+            {
+                "id": "HLG",
+                "total": 11
+            },
+            {
+                "id": "TLF",
+                "total": 4
+            },
+            {
+                "id": "TLG",
+                "total": 3
+            },
+            {
+                "id": "BLG",
+                "total": 3
+            },
+            {
+                "id": "TAG",
+                "total": 6
             }
         ]
     }
