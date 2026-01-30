@@ -156,7 +156,7 @@ const setupSingleRowCell = (row) => {
         .attr("font-size", "1.2em")
         .text(d => {
             const id = d.site.originalObject.data.originalData.id;
-            if (id === "III") return "organisms hidden in drawers";
+            if (id === "III") return "open the drawers to find out";
             return `${textMap[id[0]]} ${textMap[id[1]]} organisms ${textMap[id[2]]}`.trim(); 
         });
 
@@ -190,7 +190,7 @@ const setupSingleRowCell = (row) => {
     const rowHeight = (margin.bottom - 25) / 2;
 
     const legendTextMap = {
-        I: "hidden...",
+        I: "drawers",
         T: "tiny",
         S: "small", 
         B: "big",
@@ -214,13 +214,12 @@ const setupSingleRowCell = (row) => {
                 return;
             }
 
-            legend.append("rect")
-                .attr("x", j * width / group.length + (width / group.length) / 2 - rowHeight / 3)
-                .attr("y", rowHeight * i)
+            legend.append("circle")
+                .attr("cx", j * width / group.length + (width / group.length) / 2)
+                .attr("cy", rowHeight * (i + 0.3))
+                .attr("r", rowHeight / 3)
                 .attr("width", 2 * rowHeight / 3)
                 .attr("height", 2 * rowHeight / 3)
-                .attr("rx", 5)
-                .attr("ry", 5)
                 .attr("fill", customTextures[item].url());
 
             legend.append("text")
@@ -267,12 +266,26 @@ const renderVisualization = () => {
 Promise.all([d3.json('data/row-meaning.json')]).then(([_rows]) => {
     rows = _rows;
 
+    const overall = {};
+
     rows.forEach(row => {
         row.groups.forEach(group => {
             if (!group.total) {
-            group.total = group.images + group.objects;
+                group.total = group.images + group.objects;
+            }
+
+            if (!(group.id in overall)) {
+                overall[group.id] = group.total;
+            } else {
+                overall[group.id] += group.total;
             }
         });
+    });
+
+    rows.push({
+        row: 0,
+        name: "Entire Museum",
+        groups: Object.entries(overall).map(([key, value]) => { return { id: key, total: value } })
     });
 
     resizeAndRender();
