@@ -246,7 +246,12 @@ const renderVisualization = () => {
         .data(d => [d])
         .join("i")
         .attr("class", "row-label")
-        .text(d => d.row === 0 ? "Entire Museum" : "Row " + d.row + ": " + d.name);
+        .text(d => {
+            let rowName = d.name.toLowerCase();
+            rowName = rowName.charAt(0).toUpperCase() + rowName.slice(1);
+
+            return d.row === 0 ? "Entire Museum" : "Row " + d.row + ": " + rowName
+        });
 
     rowContainers.selectAll(".row-cell-svg")
         .data(d => [d])
