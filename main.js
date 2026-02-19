@@ -248,8 +248,13 @@ const renderVisualization = () => {
         .text(d => {
             let rowName = d.name.toLowerCase();
             rowName = rowName.charAt(0).toUpperCase() + rowName.slice(1);
-
-            return d.row === 0 ? "Entire Museum" : "Row " + d.row + ": " + rowName
+            if (d.row === 0) {
+                return "Entire Museum";
+            } else if (d.row < 1) {
+                return d.name;
+            } else {
+                return "Row " + d.row + ": " + rowName;
+            }
         });
 
     rowContainers.selectAll(".row-cell-svg")
