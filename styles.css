@@ -67,6 +67,12 @@ img {
     margin-left: 30%;;
 }
 
+a {
+    color: #d5bbf7;
+    background-color: transparent;
+    text-decoration: none;
+}
+
 @media screen and (max-width: 1680px) {
     .column {
         width: 70%;
