@@ -153,7 +153,7 @@ const setupSingleRowCell = (row) => {
         .attr("transform", d => `translate(${d3.polygonCentroid(d)[0]}, ${d3.polygonCentroid(d)[1]})`)
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "middle")
-        .attr("font-size", "1.2em")
+        .attr("font-size", "1em")
         .text(d => {
             const id = d.site.originalObject.data.originalData.id;
             if (id === "III") return "open the drawers to find out";
@@ -188,6 +188,7 @@ const setupSingleRowCell = (row) => {
 
     // Legend
     const rowHeight = (margin.bottom - 25) / 2;
+    const rowWidth = width;
 
     const legendTextMap = {
         I: "drawers",
@@ -206,8 +207,8 @@ const setupSingleRowCell = (row) => {
         .attr('transform', `translate(${margin.left},${margin.top + height + 30})`);
 
     [
-        ["I", "", "T", "S", "B", "H"],
-        ["F", "G", "", "A", "C", "L"]
+        ["I",  "", "F", "G",  "", "A", "C", "L"],
+        ["T", "S", "B", "H",  "",  "",  "",  ""]
     ].forEach((group, i) => {
         group.forEach((item, j) => {
             if (item === "") {
@@ -215,22 +216,37 @@ const setupSingleRowCell = (row) => {
             }
 
             legend.append("circle")
-                .attr("cx", j * width / group.length + (width / group.length) / 2)
+                .attr("cx", j * rowWidth / group.length + (rowWidth / group.length) / 2)
                 .attr("cy", rowHeight * (i + 0.3))
-                .attr("r", rowHeight / 3)
+                .attr("r", rowHeight / 4)
                 .attr("width", 2 * rowHeight / 3)
                 .attr("height", 2 * rowHeight / 3)
                 .attr("fill", customTextures[item].url());
 
             legend.append("text")
-                .attr("transform", d => `translate(${j * width / group.length + (width / group.length) / 2}, ${rowHeight * (i + 5 / 6)})`)
+                .attr("transform", d => `translate(${j * rowWidth / group.length + (rowWidth / group.length) / 2}, ${rowHeight * (i + 4 / 6)})`)
                 .attr("text-anchor", "middle")
                 .attr("dominant-baseline", "middle")
-                .attr("font-size", "0.9em")
+                .attr("font-size", "0.8em")
                 .attr("fill", "white")
                 .text(legendTextMap[item]);
         });
     });
+
+    svg.append("text")
+        .attr("transform", _ => `translate(${containerWidth * 0.925 - margin.left}, ${containerHeight - containerWidth * 0.04})`)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "middle")
+        .attr("font-size", "0.8em")
+        .attr("fill", "white")
+        .text("Find out more!");
+
+    svg.append("svg:image")
+        .attr('x', containerWidth * 0.85 - margin.left)
+        .attr('y', containerHeight - containerWidth * 0.22)
+        .attr('width', containerWidth * 0.15)
+        .attr('height',  containerWidth * 0.15)
+        .attr("xlink:href", "qr-code.png")
 };
 
 const renderVisualization = () => {
