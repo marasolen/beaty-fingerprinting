@@ -33,16 +33,6 @@ body {
     height: 100%;
 }
 
-.row-label {
-    width: 100%;
-    font-size: 1.3em;
-}
-
-.visualization {
-    margin: auto;
-    display: block;
-}
-
 .column {
     width: 60%;
     margin: auto;

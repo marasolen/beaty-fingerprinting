@@ -36,14 +36,20 @@ const scalePolygon = (polygon, scale) => {
     return newPolygon;
 };
 
-const setupSingleRowCell = (row) => {
+const squishPolygon = (polygon, scale) => {
+    const newPolygon = polygon.map(([x, y]) => [x, scale * y]);
+    newPolygon.site = polygon.site;
+    return newPolygon;
+};
+
+const setupSingleRowCell = (row, rowName) => {
     const containerWidth = document.getElementById("row-" + row.row + "-cell").clientWidth;
     const containerHeight = document.getElementById("row-" + row.row + "-cell").clientHeight;
 
     const margin = {
-        top: 0.01 * containerHeight,
+        top: 0.05 * containerHeight,
         right: 0.03 * containerWidth,
-        bottom: 0.3 * containerHeight,
+        bottom: 0.28 * containerHeight,
         left: 0.03 * containerWidth
     };
 
@@ -56,9 +62,11 @@ const setupSingleRowCell = (row) => {
     const chartArea = svg.append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
 
+    const constWidth = 525.46;
+    const constHeight = 596.1600000000001;
     const simulation = d3.voronoiMapSimulation(row.groups)
         .weight(d => d.total)
-        .clip([[0, 0], [0, 596.1600000000001], [525.46, 596.1600000000001], [525.46, 0]])
+        .clip([[0, 0], [0, constHeight], [constWidth, constHeight], [constWidth, 0]])
         .prng(prng)
         .stop();
 
@@ -71,6 +79,7 @@ const setupSingleRowCell = (row) => {
 
     const originalPolygons = state.polygons
         .map(polygon => scalePolygon(polygon, width / 525.46))
+        .map(polygon => squishPolygon(polygon, (height / width) / (constHeight / constWidth)))
         .map(polygon => {
         if (d3.polygonArea(polygon) / (width * height) < 0.01) {
             return generateInsetPolygon(polygon, 1)
@@ -120,7 +129,13 @@ const setupSingleRowCell = (row) => {
         L: textures.paths().d("nylon").background("#68c96a").thinner().stroke("#19841a"), 
         C: textures.paths().d("woven").background("#51c1a7").stroke("#11ad88"),
         G: textures.lines().orientation("horizontal").background("#cbaaf7").stroke("#8845e0"),
-        F: textures.paths().d("caps").background("#dfdee0").stroke("#727272")
+        F: textures.paths().d(s =>
+                    `M ${s * 1 / 6},${s * 1 / 3}
+                     l ${s * 1 / 6},${0}
+                     l ${s * 1 / 6},${s * 1 / 3}
+                     l ${s * 1 / 6},${-s * 1 / 3}
+                     l ${s * 1 / 6},${0}`
+                ).background("#dfdee0").stroke("#727272")
     };
 
     const textMap = {
@@ -147,13 +162,14 @@ const setupSingleRowCell = (row) => {
         .attr("stroke-width", 1)
         .attr('fill', d => customTextures[d[1].site.originalObject.data.originalData.id.substring(d[0], d[0] + 1)].url());
 
-    const texts = chartArea.selectAll('text')
+    const texts = chartArea.selectAll("text")
         .data(originalPolygons.filter(d => d3.polygonArea(d) > (width * height / 5)))
-        .join('text')
+        .join("text")
         .attr("transform", d => `translate(${d3.polygonCentroid(d)[0]}, ${d3.polygonCentroid(d)[1]})`)
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "middle")
-        .attr("font-size", "1em")
+        .attr("text-multiplier", 0.9)
+        .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
         .text(d => {
             const id = d.site.originalObject.data.originalData.id;
             if (id === "III") return "open the drawers to find out";
@@ -227,26 +243,38 @@ const setupSingleRowCell = (row) => {
                 .attr("transform", d => `translate(${j * rowWidth / group.length + (rowWidth / group.length) / 2}, ${rowHeight * (i + 4 / 6)})`)
                 .attr("text-anchor", "middle")
                 .attr("dominant-baseline", "middle")
-                .attr("font-size", "0.8em")
+                .attr("text-multiplier", 0.7)
+                .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
                 .attr("fill", "white")
                 .text(legendTextMap[item]);
         });
     });
 
     svg.append("text")
-        .attr("transform", _ => `translate(${containerWidth * 0.925 - margin.left}, ${containerHeight - containerWidth * 0.04})`)
+        .attr("transform", _ => `translate(${containerWidth * 0.925 - margin.left}, ${containerHeight - containerWidth * 0.02})`)
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "middle")
-        .attr("font-size", "0.8em")
+        .attr("text-multiplier", 0.8)
+        .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
         .attr("fill", "white")
         .text("Find out more!");
 
     svg.append("svg:image")
         .attr('x', containerWidth * 0.85 - margin.left)
-        .attr('y', containerHeight - containerWidth * 0.22)
+        .attr('y', containerHeight - containerWidth * 0.2)
         .attr('width', containerWidth * 0.15)
         .attr('height',  containerWidth * 0.15)
         .attr("xlink:href", "qr-code.png")
+
+    svg.append("text")
+        .attr("transform", _ => `translate(${margin.left + width / 2}, ${margin.top / 2})`)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "middle")
+        .attr("text-multiplier", 1.3)
+        .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
+        .attr("fill", "white")
+        .attr("font-weight", "bold")
+        .text(rowName);
 };
 
 const renderVisualization = () => {
@@ -257,22 +285,6 @@ const renderVisualization = () => {
         .attr("class", "row")
         .style("text-align", "center");
 
-    rowContainers.selectAll(".row-label")
-        .data(d => [d])
-        .join("i")
-        .attr("class", "row-label")
-        .text(d => {
-            let rowName = d.name.toLowerCase();
-            rowName = rowName.charAt(0).toUpperCase() + rowName.slice(1);
-            if (d.row === 0) {
-                return "Entire Museum";
-            } else if (d.row < 1) {
-                return d.name;
-            } else {
-                return "Row " + d.row + ": " + rowName;
-            }
-        });
-
     rowContainers.selectAll(".row-cell-svg")
         .data(d => [d])
         .join("svg")
@@ -281,7 +293,18 @@ const renderVisualization = () => {
 
     prng = new Math.seedrandom('my seed');
 
-    rows.forEach(setupSingleRowCell);
+    rows.forEach(d => {
+        let rowName = d.name.toLowerCase();
+        rowName = rowName.charAt(0).toUpperCase() + rowName.slice(1);
+        if (d.row === 0) {
+            rowName = "Entire Museum";
+        } else if (d.row < 1) {
+            rowName = d.name;
+        } else {
+            rowName = "Row " + d.row + ": " + rowName;
+        }
+        setupSingleRowCell(d, rowName);
+    });
 };
 
 Promise.all([d3.json('data/row-meaning.json')]).then(([_rows]) => {
