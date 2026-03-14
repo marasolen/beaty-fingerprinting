@@ -49,7 +49,7 @@ const setupSingleRowCell = (row, rowName) => {
     const margin = {
         top: 0.05 * containerHeight,
         right: 0.03 * containerWidth,
-        bottom: 0.28 * containerHeight,
+        bottom: 0.25 * containerHeight,
         left: 0.03 * containerWidth
     };
 
@@ -172,7 +172,7 @@ const setupSingleRowCell = (row, rowName) => {
         .join("path")
         .attr("d", d => pathGenerator(d[1]))
         .attr("stroke", "#222222")
-        .attr("stroke-width", 1)
+        .attr("stroke-width", width * 0.002)
         .attr("fill", d => customTextures[d[1].site.originalObject.data.originalData.id.substring(d[0], d[0] + 1)].url());
 
     const texts = chartArea.selectAll("text")
@@ -191,7 +191,7 @@ const setupSingleRowCell = (row, rowName) => {
 
     texts._groups[0].forEach(text => {
         const bounds = text.getBBox();
-        const padding = 10;
+        const padding = width * 0.015;
         chartArea.append("rect")
             .attr("x", bounds.x - padding)
             .attr("y", bounds.y - padding)
@@ -209,14 +209,14 @@ const setupSingleRowCell = (row, rowName) => {
     // Dividing line
     svg.append("rect")
         .attr("x", margin.left * 2)
-        .attr("y", height + margin.top + 12)
+        .attr("y", height + margin.top * 1.2)
         .attr("width", width - margin.left - margin.right)
-        .attr("height", 2)
+        .attr("height", width * 0.004)
         .attr("fill", "white");
 
 
     // Legend
-    const rowHeight = (margin.bottom - 25) / 2;
+    const rowHeight = (margin.bottom * 0.9) / 2;
     const rowWidth = width;
 
     const legendTextMap = {
@@ -233,7 +233,7 @@ const setupSingleRowCell = (row, rowName) => {
     };
 
     const legend = svg.append("g")
-        .attr("transform", `translate(${margin.left},${margin.top + height + 30})`);
+        .attr("transform", `translate(${margin.left},${margin.top + height * 1.06})`);
 
     [
         ["I",  "", "F", "G",  "", "A", "C", "L"],
@@ -246,8 +246,8 @@ const setupSingleRowCell = (row, rowName) => {
 
             legend.append("circle")
                 .attr("cx", j * rowWidth / group.length + (rowWidth / group.length) / 2)
-                .attr("cy", rowHeight * (i + 0.3))
-                .attr("r", rowHeight / 4)
+                .attr("cy", rowHeight * (i + 0.2))
+                .attr("r", rowHeight / 3)
                 .attr("width", 2 * rowHeight / 3)
                 .attr("height", 2 * rowHeight / 3)
                 .attr("fill", customTextures[item].url());
@@ -265,7 +265,7 @@ const setupSingleRowCell = (row, rowName) => {
     });
 
     svg.append("text")
-        .attr("transform", _ => `translate(${containerWidth * 0.925 - margin.left}, ${containerHeight - containerWidth * 0.03})`)
+        .attr("transform", _ => `translate(${containerWidth * 0.94 - margin.left}, ${containerHeight - containerWidth * 0.005})`)
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "middle")
         .attr("text-multiplier", 0.7)
@@ -276,34 +276,25 @@ const setupSingleRowCell = (row, rowName) => {
 
     const qrCode = QRCode({
         msg: "https://marasolen.github.io/beaty-fingerprinting/landing.html",
-        dim: Math.floor(containerWidth * 0.15),
+        dim: Math.floor(containerWidth * 0.12),
         pad: 0,
         ecl: "L",
         ecb: 0,
         pal: ["#ffffff"]
     });
-    console.log(qrCode);
 
-    const qrGroup = svg.append("g")
-        .attr("transform", `translate(${containerWidth * 0.85 - margin.left}, ${containerHeight - containerWidth * 0.2})`)
+    svg.append("g")
+        .attr("transform", `translate(${containerWidth * 0.88 - margin.left}, ${containerHeight - containerWidth * 0.15})`)
         .node().append(qrCode);
-
-    // svg.append("svg:image")
-    //     .attr("x", containerWidth * 0.85 - margin.left)
-    //     .attr("y", containerHeight - containerWidth * 0.2)
-    //     .attr("width", containerWidth * 0.15)
-    //     .attr("height",  containerWidth * 0.15)
-    //     .attr("xlink:href", "qr-code.svg")
 
     svg.append("text")
         .attr("transform", _ => `translate(${margin.left + width / 2}, ${margin.top / 2})`)
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "middle")
-        .attr("text-multiplier", 1.4)
+        .attr("text-multiplier", 1.44)
         .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
         .attr("font-family", "'Google Sans', sans-serif")
         .attr("fill", "white")
-        // .attr("font-weight", "bold")
         .text(rowName);
 };
 
