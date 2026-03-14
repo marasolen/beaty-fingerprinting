@@ -1,4 +1,4 @@
-let rows, prng;
+let rows, prng, font;
 
 const resizeAndRender = () => {
     d3.selectAll("#row-visualization-container > *").remove();
@@ -49,7 +49,7 @@ const setupSingleRowCell = (row, rowName) => {
     const margin = {
         top: 0.05 * containerHeight,
         right: 0.03 * containerWidth,
-        bottom: 0.25 * containerHeight,
+        bottom: 0.27 * containerHeight,
         left: 0.03 * containerWidth
     };
 
@@ -61,10 +61,10 @@ const setupSingleRowCell = (row, rowName) => {
         .attr("xmlns", "http://www.w3.org/2000/svg")
         .attr("xmlns:xlink", "http://www.w3.org/1999/xlink");
 
-    svg.append('defs')
+    svg.append("defs")
         .append('style')
-        .attr('type', 'text/css')
-        .text("@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');");
+        .attr("type", "text/css")
+        .text(`@font-face { font-family: 'Google Sans'; src: url('data:application/octet-stream;base64,${font}'); }`);
 
     svg.append("rect")
         .attr("width", containerWidth)
@@ -95,11 +95,11 @@ const setupSingleRowCell = (row, rowName) => {
         .map(polygon => squishPolygon(polygon, (height / width) / (constHeight / constWidth)))
         .map(polygon => {
         if (d3.polygonArea(polygon) / (width * height) < 0.01) {
-            return generateInsetPolygon(polygon, 1)
+            return generateInsetPolygon(polygon, width * 0.002)
         } else if (d3.polygonArea(polygon) / (width * height) < 0.02) {
-            return generateInsetPolygon(polygon, 2)
+            return generateInsetPolygon(polygon, width * 0.004)
         } else {
-            return generateInsetPolygon(polygon, 5)
+            return generateInsetPolygon(polygon, width * 0.01)
         }
     });
 
@@ -181,7 +181,8 @@ const setupSingleRowCell = (row, rowName) => {
         .attr("transform", d => `translate(${d3.polygonCentroid(d)[0]}, ${d3.polygonCentroid(d)[1]})`)
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "middle")
-        .attr("text-multiplier", 0.9)
+        .attr("font-family", "Google Sans")
+        .attr("text-multiplier", 0.8)
         .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
         .text(d => {
             const id = d.site.originalObject.data.originalData.id;
@@ -189,8 +190,8 @@ const setupSingleRowCell = (row, rowName) => {
             return `${textMap[id[0]]} ${textMap[id[1]]} organisms ${textMap[id[2]]}`.trim(); 
         });
 
-    texts._groups[0].forEach(text => {
-        const bounds = text.getBBox();
+    texts.each(function() {
+        const bounds = this.getBBox();
         const padding = width * 0.015;
         chartArea.append("rect")
             .attr("x", bounds.x - padding)
@@ -201,7 +202,7 @@ const setupSingleRowCell = (row, rowName) => {
             .attr("ry", padding / 2)
             .attr("fill", "white")
             .attr("opacity", 0.8)
-            .attr("transform", d3.select(text).attr("transform"));
+            .attr("transform", d3.select(this).attr("transform"));
     });
 
     texts.raise();
@@ -257,20 +258,20 @@ const setupSingleRowCell = (row, rowName) => {
                 .attr("text-anchor", "middle")
                 .attr("dominant-baseline", "middle")
                 .attr("text-multiplier", 0.7)
+                .attr("font-family", "Google Sans")
                 .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
-                .attr("font-family", "'Google Sans', sans-serif")
                 .attr("fill", "white")
                 .text(legendTextMap[item]);
         });
     });
 
     svg.append("text")
-        .attr("transform", _ => `translate(${containerWidth * 0.94 - margin.left}, ${containerHeight - containerWidth * 0.005})`)
+        .attr("transform", _ => `translate(${containerWidth * 0.94 - margin.left}, ${containerHeight - containerWidth * 0.025})`)
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "middle")
         .attr("text-multiplier", 0.7)
+        .attr("font-family", "Google Sans")
         .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
-        .attr("font-family", "'Google Sans', sans-serif")
         .attr("fill", "white")
         .text("Find out more!");
 
@@ -284,7 +285,7 @@ const setupSingleRowCell = (row, rowName) => {
     });
 
     svg.append("g")
-        .attr("transform", `translate(${containerWidth * 0.88 - margin.left}, ${containerHeight - containerWidth * 0.15})`)
+        .attr("transform", `translate(${containerWidth * 0.88 - margin.left}, ${containerHeight - containerWidth * 0.17})`)
         .node().append(qrCode);
 
     svg.append("text")
@@ -292,8 +293,8 @@ const setupSingleRowCell = (row, rowName) => {
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "middle")
         .attr("text-multiplier", 1.44)
+        .attr("font-family", "Google Sans")
         .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
-        .attr("font-family", "'Google Sans', sans-serif")
         .attr("fill", "white")
         .text(rowName);
 };
@@ -328,8 +329,9 @@ const renderVisualization = () => {
     });
 };
 
-Promise.all([d3.json("data/row-meaning.json")]).then(([_rows]) => {
+Promise.all([d3.json("data/row-meaning.json"), d3.json("font.json")]).then(([_rows, _font]) => {
     rows = _rows;
+    font = _font.woff;
 
     const overall = {};
 
