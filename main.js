@@ -56,11 +56,24 @@ const setupSingleRowCell = (row, rowName) => {
     const width = containerWidth - (margin.right + margin.left);
     const height = containerHeight - (margin.top + margin.bottom);
 
-    const svg = d3.select(`#row-${row.row}-cell`);
+    const svg = d3.select(`#row-${row.row}-cell`)
+        .attr("viewBox", `0 0 ${containerWidth} ${containerHeight}`)
+        .attr("xmlns", "http://www.w3.org/2000/svg")
+        .attr("xmlns:xlink", "http://www.w3.org/1999/xlink");
+
+    svg.append('defs')
+        .append('style')
+        .attr('type', 'text/css')
+        .text("@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');");
+
+    svg.append("rect")
+        .attr("width", containerWidth)
+        .attr("height", containerHeight)
+        .attr("fill", "#222222");
 
     // Cells
-    const chartArea = svg.append('g')
-        .attr('transform', `translate(${margin.left},${margin.top})`);
+    const chartArea = svg.append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
 
     const constWidth = 525.46;
     const constHeight = 596.1600000000001;
@@ -120,22 +133,22 @@ const setupSingleRowCell = (row, rowName) => {
     };
 
     const customTextures = {
-        I: textures.paths().d("crosses").lighter().background("#666666").stroke("#222222"),
-        T: textures.circles().radius(2).background("#f7fc76").fill("#c3c90c"),
-        S: textures.circles().radius(3).background("#fcc964").fill("#e59a04"), 
-        B: textures.circles().radius(4).background("#fca45d").fill("#ce5f04"),
-        H: textures.circles().radius(5).background("#f4695a").fill("#d11c08"),
-        A: textures.paths().d("waves").background("#316be0").stroke("#1d2ec6"), 
-        L: textures.paths().d("nylon").background("#68c96a").thinner().stroke("#19841a"), 
-        C: textures.paths().d("woven").background("#51c1a7").stroke("#11ad88"),
-        G: textures.lines().orientation("horizontal").background("#cbaaf7").stroke("#8845e0"),
+        I: textures.paths().d("crosses").background("#666666").stroke("#222222").size(width * 0.03),
+        T: textures.circles().radius(width * 0.002).background("#f7fc76").fill("#c3c90c").size(width * 0.03),
+        S: textures.circles().radius(width * 0.003).background("#fcc964").fill("#e59a04").size(width * 0.03), 
+        B: textures.circles().radius(width * 0.004).background("#fca45d").fill("#ce5f04").size(width * 0.03),
+        H: textures.circles().radius(width * 0.005).background("#f4695a").fill("#d11c08").size(width * 0.03),
+        A: textures.paths().d("waves").background("#316be0").stroke("#1d2ec6").size(width * 0.03), 
+        L: textures.paths().d("nylon").background("#68c96a").stroke("#19841a").size(width * 0.06), 
+        C: textures.paths().d("woven").background("#51c1a7").stroke("#11ad88").size(width * 0.06),
+        G: textures.lines().orientation("horizontal").background("#cbaaf7").stroke("#8845e0").size(width * 0.03),
         F: textures.paths().d(s =>
                     `M ${s * 1 / 6},${s * 1 / 3}
                      l ${s * 1 / 6},${0}
                      l ${s * 1 / 6},${s * 1 / 3}
                      l ${s * 1 / 6},${-s * 1 / 3}
                      l ${s * 1 / 6},${0}`
-                ).background("#dfdee0").stroke("#727272")
+                ).background("#dfdee0").stroke("#727272").size(width * 0.03)
     };
 
     const textMap = {
@@ -154,13 +167,13 @@ const setupSingleRowCell = (row, rowName) => {
         svg.call(texture);
     });
 
-    chartArea.selectAll('path')
+    chartArea.selectAll("path")
         .data(scaledPolygons)
-        .join('path')
-        .attr('d', d => pathGenerator(d[1]))
+        .join("path")
+        .attr("d", d => pathGenerator(d[1]))
         .attr("stroke", "#222222")
         .attr("stroke-width", 1)
-        .attr('fill', d => customTextures[d[1].site.originalObject.data.originalData.id.substring(d[0], d[0] + 1)].url());
+        .attr("fill", d => customTextures[d[1].site.originalObject.data.originalData.id.substring(d[0], d[0] + 1)].url());
 
     const texts = chartArea.selectAll("text")
         .data(originalPolygons.filter(d => d3.polygonArea(d) > (width * height / 5)))
@@ -220,7 +233,7 @@ const setupSingleRowCell = (row, rowName) => {
     };
 
     const legend = svg.append("g")
-        .attr('transform', `translate(${margin.left},${margin.top + height + 30})`);
+        .attr("transform", `translate(${margin.left},${margin.top + height + 30})`);
 
     [
         ["I",  "", "F", "G",  "", "A", "C", "L"],
@@ -245,35 +258,52 @@ const setupSingleRowCell = (row, rowName) => {
                 .attr("dominant-baseline", "middle")
                 .attr("text-multiplier", 0.7)
                 .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
+                .attr("font-family", "'Google Sans', sans-serif")
                 .attr("fill", "white")
                 .text(legendTextMap[item]);
         });
     });
 
     svg.append("text")
-        .attr("transform", _ => `translate(${containerWidth * 0.925 - margin.left}, ${containerHeight - containerWidth * 0.02})`)
+        .attr("transform", _ => `translate(${containerWidth * 0.925 - margin.left}, ${containerHeight - containerWidth * 0.03})`)
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "middle")
-        .attr("text-multiplier", 0.8)
+        .attr("text-multiplier", 0.7)
         .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
+        .attr("font-family", "'Google Sans', sans-serif")
         .attr("fill", "white")
         .text("Find out more!");
 
-    svg.append("svg:image")
-        .attr('x', containerWidth * 0.85 - margin.left)
-        .attr('y', containerHeight - containerWidth * 0.2)
-        .attr('width', containerWidth * 0.15)
-        .attr('height',  containerWidth * 0.15)
-        .attr("xlink:href", "qr-code.png")
+    const qrCode = QRCode({
+        msg: "https://marasolen.github.io/beaty-fingerprinting/landing.html",
+        dim: Math.floor(containerWidth * 0.15),
+        pad: 0,
+        ecl: "L",
+        ecb: 0,
+        pal: ["#ffffff"]
+    });
+    console.log(qrCode);
+
+    const qrGroup = svg.append("g")
+        .attr("transform", `translate(${containerWidth * 0.85 - margin.left}, ${containerHeight - containerWidth * 0.2})`)
+        .node().append(qrCode);
+
+    // svg.append("svg:image")
+    //     .attr("x", containerWidth * 0.85 - margin.left)
+    //     .attr("y", containerHeight - containerWidth * 0.2)
+    //     .attr("width", containerWidth * 0.15)
+    //     .attr("height",  containerWidth * 0.15)
+    //     .attr("xlink:href", "qr-code.svg")
 
     svg.append("text")
         .attr("transform", _ => `translate(${margin.left + width / 2}, ${margin.top / 2})`)
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "middle")
-        .attr("text-multiplier", 1.3)
+        .attr("text-multiplier", 1.4)
         .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
+        .attr("font-family", "'Google Sans', sans-serif")
         .attr("fill", "white")
-        .attr("font-weight", "bold")
+        // .attr("font-weight", "bold")
         .text(rowName);
 };
 
@@ -291,7 +321,7 @@ const renderVisualization = () => {
         .attr("class", "row-cell-svg")
         .attr("id", d => "row-" + d.row + "-cell");
 
-    prng = new Math.seedrandom('my seed');
+    prng = new Math.seedrandom("my seed");
 
     rows.forEach(d => {
         let rowName = d.name.toLowerCase();
@@ -307,7 +337,7 @@ const renderVisualization = () => {
     });
 };
 
-Promise.all([d3.json('data/row-meaning.json')]).then(([_rows]) => {
+Promise.all([d3.json("data/row-meaning.json")]).then(([_rows]) => {
     rows = _rows;
 
     const overall = {};
