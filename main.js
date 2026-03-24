@@ -265,6 +265,34 @@ const setupSingleRowCell = (row, rowName) => {
         });
     });
 
+    const explanationTextLines = [
+        "This is a visualization of the types of organisms",
+        "within a part of the Beaty Biodiversity Museum.",
+        "Organisms are grouped by size, whether or not",
+        "they can fly, and their habitat. Groups with a",
+        "greater number of organisms are represented",
+        "with a larger space on the visualization.",
+        "",
+        "Can you guess which types of organisms",
+        "belong to each group?"
+    ];
+
+    const explanationText = svg.append("g")
+        .attr("transform", `translate(${containerWidth / 2 + 1.4 * margin.left}, ${height + 1.5 * margin.top + rowHeight})`);
+
+    explanationText.selectAll(".explainer-line")
+        .data(explanationTextLines)
+        .join("text")
+        .attr("transform", (_, i) => `translate(0, ${i * rowHeight / explanationTextLines.length})`)
+        .attr("text-anchor", "start")
+        .attr("dominant-baseline", "middle")
+        .attr("text-multiplier", 0.5)
+        .attr("font-family", "Google Sans")
+        .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
+        .attr("fill", "white")
+        .text(d => d);
+        
+
     svg.append("text")
         .attr("transform", _ => `translate(${containerWidth * 0.94 - margin.left}, ${containerHeight - containerWidth * 0.025})`)
         .attr("text-anchor", "middle")
