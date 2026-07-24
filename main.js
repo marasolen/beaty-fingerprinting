@@ -75,8 +75,8 @@ const setupSingleRowCell = (row, rowName) => {
     const chartArea = svg.append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    const constWidth = 525.46;
-    const constHeight = 596.1600000000001;
+    const constWidth = rowName.includes("Test") ? 500 : 525.46;
+    const constHeight = rowName.includes("Test") ? 500 : 596.1600000000001;
     const simulation = d3.voronoiMapSimulation(row.groups)
         .weight(d => d.total)
         .clip([[0, 0], [0, constHeight], [constWidth, constHeight], [constWidth, 0]])
@@ -110,7 +110,7 @@ const setupSingleRowCell = (row, rowName) => {
     ]
 
     const scaledPolygons = [];
-    [1, Math.sqrt(0.6), Math.sqrt(0.3)].forEach((scale, i) => {
+    (rowName.includes("Test") ? [1, 0.85, 0.7] : [1, Math.sqrt(0.6), Math.sqrt(0.3)]).forEach((scale, i) => {
         scaledPolygons.push(...originalPolygons.filter(p => i === 0 || p.site.originalObject.data.originalData.id !== "III").map(p => [order[i], generateScaledPolygon(p, scale)]));
     });
 
@@ -151,6 +151,10 @@ const setupSingleRowCell = (row, rowName) => {
                 ).background("#dfdee0").stroke("#727272").size(width * 0.03)
     };
 
+    Object.values(customTextures).forEach(texture => {
+        svg.call(texture);
+    });
+
     const textMap = {
         T: "tiny",
         S: "small", 
@@ -163,10 +167,6 @@ const setupSingleRowCell = (row, rowName) => {
         F: "that fly"
     };
 
-    Object.values(customTextures).forEach(texture => {
-        svg.call(texture);
-    });
-
     chartArea.selectAll("path")
         .data(scaledPolygons)
         .join("path")
@@ -175,37 +175,40 @@ const setupSingleRowCell = (row, rowName) => {
         .attr("stroke-width", width * 0.002)
         .attr("fill", d => customTextures[d[1].site.originalObject.data.originalData.id.substring(d[0], d[0] + 1)].url());
 
-    const texts = chartArea.selectAll("text")
-        .data(originalPolygons.filter(d => d3.polygonArea(d) > (width * height / 5)))
-        .join("text")
-        .attr("transform", d => `translate(${d3.polygonCentroid(d)[0]}, ${d3.polygonCentroid(d)[1]})`)
-        .attr("text-anchor", "middle")
-        .attr("dominant-baseline", "middle")
-        .attr("font-family", "Google Sans")
-        .attr("text-multiplier", 0.8)
-        .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
-        .text(d => {
-            const id = d.site.originalObject.data.originalData.id;
-            if (id === "III") return "open the drawers to find out";
-            return `${textMap[id[0]]} ${textMap[id[1]]} organisms ${textMap[id[2]]}`.trim(); 
+    if (!rowName.includes("Test")) {
+
+        const texts = chartArea.selectAll("text")
+            .data(originalPolygons.filter(d => d3.polygonArea(d) > (width * height / 5)))
+            .join("text")
+            .attr("transform", d => `translate(${d3.polygonCentroid(d)[0]}, ${d3.polygonCentroid(d)[1]})`)
+            .attr("text-anchor", "middle")
+            .attr("dominant-baseline", "text-bottom")
+            .attr("font-family", "Google Sans")
+            .attr("text-multiplier", 0.8)
+            .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
+            .text(d => {
+                const id = d.site.originalObject.data.originalData.id;
+                if (id === "III") return "open the drawers to find out";
+                return `${textMap[id[0]]} ${textMap[id[1]]} organisms ${textMap[id[2]]}`.trim(); 
+            });
+
+        texts.each(function() {
+            const bounds = this.getBBox();
+            const padding = width * 0.015;
+            chartArea.append("rect")
+                .attr("x", bounds.x - padding)
+                .attr("y", bounds.y / 2 - padding)
+                .attr("width", bounds.width + 2 * padding)
+                .attr("height", bounds.height + 2 * padding)
+                .attr("rx", padding / 2)
+                .attr("ry", padding / 2)
+                .attr("fill", "white")
+                .attr("opacity", 0.8)
+                .attr("transform", d3.select(this).attr("transform"));
         });
 
-    texts.each(function() {
-        const bounds = this.getBBox();
-        const padding = width * 0.015;
-        chartArea.append("rect")
-            .attr("x", bounds.x - padding)
-            .attr("y", bounds.y - padding)
-            .attr("width", bounds.width + 2 * padding)
-            .attr("height", bounds.height + 2 * padding)
-            .attr("rx", padding / 2)
-            .attr("ry", padding / 2)
-            .attr("fill", "white")
-            .attr("opacity", 0.8)
-            .attr("transform", d3.select(this).attr("transform"));
-    });
-
-    texts.raise();
+        texts.raise();
+    }
 
     // Dividing line
     svg.append("rect")
@@ -219,6 +222,29 @@ const setupSingleRowCell = (row, rowName) => {
     // Legend
     const rowHeight = (margin.bottom * 0.9) / 2;
     const rowWidth = width;
+
+    const customTexturesLegend = {
+        I: textures.paths().d("crosses").background("#666666").stroke("#222222").size(width * 0.03),
+        T: textures.circles().radius(width * 0.002).background("#f7fc76").fill("#c3c90c").size(width * 0.03),
+        S: textures.circles().radius(width * 0.003).background("#fcc964").fill("#e59a04").size(width * 0.03), 
+        B: textures.circles().radius(width * 0.004).background("#fca45d").fill("#ce5f04").size(width * 0.03),
+        H: textures.circles().radius(width * 0.005).background("#f4695a").fill("#d11c08").size(width * 0.03),
+        A: textures.paths().d("waves").background("#316be0").stroke("#1d2ec6").size(width * 0.03), 
+        L: textures.paths().d("nylon").background("#68c96a").stroke("#19841a").size(width * 0.06), 
+        C: textures.paths().d("woven").background("#51c1a7").stroke("#11ad88").size(width * 0.06),
+        G: textures.lines().orientation("horizontal").background("#cbaaf7").stroke("#8845e0").size(width * 0.03),
+        F: textures.paths().d(s =>
+                    `M ${s * 1 / 6},${s * 1 / 3}
+                     l ${s * 1 / 6},${0}
+                     l ${s * 1 / 6},${s * 1 / 3}
+                     l ${s * 1 / 6},${-s * 1 / 3}
+                     l ${s * 1 / 6},${0}`
+                ).background("#dfdee0").stroke("#727272").size(width * 0.03)
+    };
+
+    Object.values(customTexturesLegend).forEach(texture => {
+        svg.call(texture);
+    });
 
     const legendTextMap = {
         I: "drawers",
@@ -251,12 +277,12 @@ const setupSingleRowCell = (row, rowName) => {
                 .attr("r", rowHeight / 3)
                 .attr("width", 2 * rowHeight / 3)
                 .attr("height", 2 * rowHeight / 3)
-                .attr("fill", customTextures[item].url());
+                .attr("fill", customTexturesLegend[item].url());
 
             legend.append("text")
                 .attr("transform", d => `translate(${j * rowWidth / group.length + (rowWidth / group.length) / 2}, ${rowHeight * (i + 4 / 6)})`)
                 .attr("text-anchor", "middle")
-                .attr("dominant-baseline", "middle")
+                .attr("dominant-baseline", "text-bottom")
                 .attr("text-multiplier", 0.7)
                 .attr("font-family", "Google Sans")
                 .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
@@ -285,7 +311,7 @@ const setupSingleRowCell = (row, rowName) => {
         .join("text")
         .attr("transform", (_, i) => `translate(0, ${i * rowHeight / explanationTextLines.length})`)
         .attr("text-anchor", "start")
-        .attr("dominant-baseline", "middle")
+        .attr("dominant-baseline", "text-bottom")
         .attr("text-multiplier", 0.5)
         .attr("font-family", "Google Sans")
         .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
@@ -296,7 +322,7 @@ const setupSingleRowCell = (row, rowName) => {
     svg.append("text")
         .attr("transform", _ => `translate(${containerWidth * 0.94 - margin.left}, ${containerHeight - containerWidth * 0.025})`)
         .attr("text-anchor", "middle")
-        .attr("dominant-baseline", "middle")
+        .attr("dominant-baseline", "text-bottom")
         .attr("text-multiplier", 0.7)
         .attr("font-family", "Google Sans")
         .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
@@ -319,12 +345,17 @@ const setupSingleRowCell = (row, rowName) => {
     svg.append("text")
         .attr("transform", _ => `translate(${margin.left + width / 2}, ${margin.top / 2})`)
         .attr("text-anchor", "middle")
-        .attr("dominant-baseline", "middle")
+        .attr("dominant-baseline", "text-bottom")
         .attr("text-multiplier", 1.44)
         .attr("font-family", "Google Sans")
         .attr("font-size", function() { return d3.select(this).attr("text-multiplier") * 0.03 * height })
         .attr("fill", "white")
         .text(rowName);
+    
+    svg.selectAll("text").attr("y", function() { return d3.select(this).attr("font-size") / 2 });
+
+    svg.selectAll("defs").lower();
+    
 };
 
 const renderVisualization = () => {
